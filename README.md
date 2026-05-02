@@ -6,6 +6,7 @@
 
 - 需要拉下来就`git pull`
 
-- 因为已经绑定过了所以直接`git posh`应该就可以了
+- 因为已经绑定过了所以直接`git posh`应该就可以了，当然如果没有绑定你就需要`git push --set-upstream origin main`
 
 - `git branch dev`这样可以创建分支，`git merge dev`这样可以把本地分支合并上去
+
