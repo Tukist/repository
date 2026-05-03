@@ -21,4 +21,9 @@ git pull origin main
 
 # 3. 把暂存的本地修改放出来
 git stash pop
+
+# 4. 继续
+git add .
+git coimmit
+git push
 ```
