@@ -2,6 +2,15 @@
 
 ~~最近刚学了md怎么写，顺便用这个练练手。~~
 
+## 下载方式
+是用debian写的不知道其他是怎么样。。
+
+```
+echo "deb [trusted=yes] https://Tukist.github.io/my-apt-repo/ stable main" | tee /etc/apt/sources.list.d/p2a.list
+sudo apt update
+sudo apt install p2a
+```
+
 ## 功能
 
 这个工具`p2a`就是可以把一般linux没发直接打开的**png文件转化成字符画输出**
@@ -56,7 +65,7 @@ p2a image.png --no-color
 
 其中代码原理就是用十种字符代替颜色深浅，然后用颜色码来模拟颜色，遍历图片像素块然后转化。
 
-~~制作中间最大的问题可能还是不知道要开ssh的权限所以scp命令一直报错，后面才知道要用`sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config`~~
+~~制作中间最大的问题可能还是不知道要开ssh的权限所以scp命令一直报错，后面才知道要用`sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config`,以及怎么打包成deb~~
 
 ## 代码
 
