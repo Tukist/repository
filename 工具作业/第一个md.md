@@ -2,6 +2,7 @@
 
 ~~最近刚学了md怎么写，顺便用这个练练手。~~
 
+
 ## 下载方式
 是用debian写的不知道其他是怎么样。。
 
@@ -51,7 +52,7 @@ sudo apt install p2a
 ```
 
 示例:
-```
+```bash
 p2a.py image.png
 p2a.py image.png -w 80
 p2a.py image.png -o output.txt
@@ -61,15 +62,82 @@ p2a image.png --no-color
 
 ## 实现方法
 
-首先用python写好代码，然后用`scp`发送到linux服务器上用`chmod`赋予可执行权限。然后在`.bashrc`中追加`alias python3 png2ascii.py = 'p2a'`，随后用``source ~/.bashrc``刷新一下即可。
+首先用python写好代码，然后用`scp`发送到linux服务器上用`chmod`赋予可执行权限。
+
+安装打包依赖
+
+```bash
+apt update
+apt install dpkg-dev gzip git build-essential
+apt install devscripts debmake
+```
+
+然后整理一下打包项目结构，顺便给个权限
+
+```bash
+mkdir -p p2a/usr/bin
+mkdir -p p2a/DEBIAN
+cp png2ascii.py p2a/usr/bin/p2a
+chmod +x p2a/usr/bin/p2a
+```
+
+写包控制信息，应该是不能出现中文的
+
+`vim p2a/DEBIAN/control`
+
+```vim
+Package: p2a
+Status: install ok installed
+Maintainer: Tukist <2590568618@qq.com>
+Architecture: all
+Version: 1.0.0
+Depends: python3 (>= 3.6)
+Description: a tool to output PNG as ASCII art
+  Black-and-white mode or color mode
+  you can choose width
+  -h to check the usage
+Depends: python3 (>=3.6)
+```
+
+打包
+
+`dpkg-deb --build --root-owner-group p2a`
+
+---
+
+然后就要开始做apt源了
+
+```bash
+mkdir -p ~/my-apt-repo/pool/main/m/p2a
+mkdir -p ~/my-apt-repo/dists/stable/main/binary-amd64
+cp p2a.deb ~/my-apt-repo/pool/main/m/p2a/
+```
+
+生成apt的索引文件
+
+```bash
+cd ~/my-apt-repo
+dpkg-scanpackages pool/ /dev/null | gzip -9c > dists/stable/main/binary-amd64/Packages.gz
+```
+
+然后建个仓库my-apt-repo，回到Debian终端
+
+```bash
+cd ~/my-apt-repo
+git init
+git add .
+git commit -m "init my apt repo"
+git remote add origin git@github.com:Tukist/my-apt-repo.git
+git push -u origin main
+```
 
 其中代码原理就是用十种字符代替颜色深浅，然后用颜色码来模拟颜色，遍历图片像素块然后转化。
 
-~~制作中间最大的问题可能还是不知道要开ssh的权限所以scp命令一直报错，后面才知道要用`sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config`,以及怎么打包成deb~~
+~~制作中间最大的问题可能还是不知道要开ssh的权限所以scp命令一直报错，后面才知道要用`sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config`开权限~~
 
 ## 代码
 
-```
+```py {.line-numbers} 
 #!/usr/bin/env python3
 """
 PNG to ASCII Art Converter
