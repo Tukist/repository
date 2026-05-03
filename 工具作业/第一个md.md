@@ -2,7 +2,10 @@
 
 ~~最近刚学了md怎么写，顺便用这个练练手。~~
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 ## 下载方式
 是用debian写的不知道其他是怎么样。。
 
@@ -133,7 +136,11 @@ git push -u origin main
 
 其中代码原理就是用十种字符代替颜色深浅，然后用颜色码来模拟颜色，遍历图片像素块然后转化。
 
+<<<<<<< Updated upstream
 ~~制作中间最大的问题可能还是不知道要开ssh的权限所以scp命令一直报错，后面才知道要用`sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config`开权限~~
+=======
+~~制作中间最大的问题可能还是不知道要开ssh的权限所以scp命令一直报错，后面才知道要用`sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config`,以及怎么打包成deb~~
+>>>>>>> Stashed changes
 
 ## 代码
 
