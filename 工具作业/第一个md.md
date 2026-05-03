@@ -7,6 +7,7 @@
 是用debian写的不知道其他是怎么样。。
 
 ```
+pip install pillow
 echo "deb [trusted=yes] https://Tukist.github.io/my-apt-repo/ stable main" | tee /etc/apt/sources.list.d/p2a.list
 apt update
 apt install p2a
