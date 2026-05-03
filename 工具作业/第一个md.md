@@ -8,8 +8,8 @@
 
 ```
 echo "deb [trusted=yes] https://Tukist.github.io/my-apt-repo/ stable main" | tee /etc/apt/sources.list.d/p2a.list
-sudo apt update
-sudo apt install p2a
+apt update
+apt install p2a
 ```
 
 ## 功能
