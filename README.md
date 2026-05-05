@@ -24,6 +24,6 @@ git stash pop
 
 # 4. 继续
 git add .
-git coimmit
+git commit
 git push
 ```
