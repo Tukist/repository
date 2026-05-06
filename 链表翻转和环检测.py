@@ -48,7 +48,7 @@ class LinkedList:
                 return None
             last=current
             current = current.next
-    def flip(self):
+    def reverse(self):
         prev = None
         current = self.head
         while current:
@@ -57,7 +57,7 @@ class LinkedList:
             prev = current
             current = next_node
         self.head = prev
-    def is_circular(self) -> bool:
+    def has_cycle(self) -> bool:
         slow = self.head
         fast = self.head
         while fast and fast.next:
@@ -86,12 +86,12 @@ print(f"链表1: {list_1}")
 # list_1.delete(1)
 # print(f"链表1: {list_1}")
 
-list_1.flip()
+list_1.reverse()
 #翻转普通链表
 print(f"翻转后链表1: {list_1}")
-print(f"链表1是否为环形: {list_1.is_circular()}")
+print(f"链表1是否为环形: {list_1.has_cycle()}")
 node_1.next = node_3
 # print(f"翻转后链表1: {list_1}")
 #把链表变成环形
-print(f"环化后链表1是否为环形: {list_1.is_circular()}")
+print(f"环化后链表1是否为环形: {list_1.has_cycle()}")
 # print(f"再次翻转后链表1: {list_1}")
